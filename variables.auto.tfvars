@@ -1,6 +1,4 @@
 gcp_project_id             = "deploying-with-terraform"
-gcp_region                 = "europe_west3"
-gke_cluster_name           = "template-to-cluster"
 gke_zones                  = ["europe-west3-b"]
 gke_regional               = false
 gke_network                = "default"
