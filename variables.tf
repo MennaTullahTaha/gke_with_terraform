@@ -1,24 +1,21 @@
 variable "gcp_credentials" {
 }
 
-variable "gcp_project_id" {
-  type        = string
-  description = "GCP project id."
-}
-
 variable "gcp_region" {
-  type        = string
-  description = "GCP region"
+
 }
 
 variable "gke_cluster_name" {
-  type        = string
-  description = "GCP cluster name"
 }
 
 variable "gke_zones" {
   type        = list(string)
   description = "List of zones for the GKE cluster"
+}
+
+variable "gcp_project_id" {
+  type        = string
+  description = "GCP project id."
 }
 
 variable "gke_regional" {

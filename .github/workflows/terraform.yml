@@ -17,7 +17,9 @@ on:
 jobs:
   apply_cluster:
     runs-on: ubuntu-latest
-
+    permissions:
+      contents: write
+      id-token: write
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
@@ -62,6 +64,10 @@ jobs:
 
   destroy_cluster:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
       run:
