@@ -23,16 +23,6 @@ variable "gke_regional" {
   description = "regional choice"
 }
 
-variable "gke_network" {
-  type        = string
-  description = "VPC network name"
-}
-
-variable "gke_subnetwork" {
-  type        = string
-  description = "VPC subnetwork name"
-}
-
 variable "gke_default_nodepools_name" {
   type        = string
   description = "default name for node pool"
