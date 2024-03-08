@@ -42,22 +42,18 @@ jobs:
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         run: terraform init
-        working-directory: Terraform
 
       # formats the file
       - name: Terraform Format
         run: terraform fmt
-        working-directory: Terraform
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -var 'gcp_credentials=${{ secrets.GCP_SA_KEY }}' -var 'gke_cluster_name=${{ github.event.inputs.clusterName }}" -var 'gcp_region=${{ github.event.inputs.gkeRegion }}'
-        working-directory: Terraform
+        run: terraform plan -var 'gcp_credentials=${{ secrets.GCP_SA_KEY }}' -var 'gke_cluster_name=${{ github.event.inputs.clusterName }}' -var 'gcp_region=${{ github.event.inputs.gkeRegion }}'
 
       # Apply terraform
       - name: Terraform Apply
         run: terraform apply -auto-approve
-        working-directory: Terraform
 
   destroy_cluster:
     runs-on: ubuntu-latest
@@ -90,14 +86,11 @@ jobs:
       # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
       - name: Terraform Init
         run: terraform init
-        working-directory: Terraform
 
       # formats the file
       - name: Terraform Format
         run: terraform fmt
-        working-directory: Terraform
 
       # Destroy cluster
       - name: Terraform Destroy
-        run: terraform destroy -var 'gcp_credentials=${{ secrets.GCP_SA_KEY }}' -var 'gke_cluster_name=${{ github.event.inputs.clusterName }}" -var 'gcp_region=${{ github.event.inputs.gkeRegion }}' -auto-approve
-        working-directory: Terraform
+        run: terraform destroy -var 'gcp_credentials=${{ secrets.GCP_SA_KEY }}' -var 'gke_cluster_name=${{ github.event.inputs.clusterName }}' -var 'gcp_region=${{ github.event.inputs.gkeRegion }}' -auto-approve
