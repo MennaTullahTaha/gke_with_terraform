@@ -1,6 +1,6 @@
 output "cluster_id" {
   description = "an identifier for the resource with format projects/{{project}}/locations/{{zone}}/clusters/{{name}}"
-  value       = module.gke.id
+  value       = module.gke.cluster_id
 }
 
 output "cluster_master_version" {
@@ -8,25 +8,14 @@ output "cluster_master_version" {
   value       = module.gke.master_version
 }
 
-output "client_certificate" {
-  description = "Base64 encoded public certificate used by clients to authenticate to the Kubernetes cluster."
-  value       = module.gke.master_auth.0.client_certificate
-  sensitive   = true
-}
-
-output "client_key" {
-  description = "Base64 encoded private key used by clients to authenticate to the cluster endpoint."
-  value       = module.gke.master_auth.0.client_key
-  sensitive   = true
-}
-
 output "cluster_ca_certificate" {
   description = "Base64 encoded public certificate that is the root certificate of the cluster."
-  value       = module.gke.master_auth.0.cluster_ca_certificate
+  value       = module.gke.ca_certificate
   sensitive   = true
 }
 
 output "endpoint" {
   description = "The IP address of this cluster's Kubernetes master."
   value       = module.gke.endpoint
+  sensitive   = true 
 }
