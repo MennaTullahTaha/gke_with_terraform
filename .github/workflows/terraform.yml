@@ -55,6 +55,9 @@ jobs:
       - name: Terraform Apply
         run: terraform apply -var 'gcp_credentials=${{ secrets.GCP_SA_KEY }}' -var 'gke_cluster_name=${{ github.event.inputs.clusterName }}' -var 'gcp_region=${{ github.event.inputs.gkeRegion }}' -auto-approve
 
+      - name: Terraform output
+        run: terraform output
+
   destroy_cluster:
     runs-on: ubuntu-latest
 
