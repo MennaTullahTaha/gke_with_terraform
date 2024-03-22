@@ -5,9 +5,9 @@ module "gke"  {
   region                     = var.gcp_region
   regional                   = var.gke_regional
   zones                      = var.gke_zones
-  network                    = "network-trial"
-  subnetwork                 = "subnetwork-trial"
-  ip_range_pods              = "range-1"
+  network                    = ""
+  subnetwork                 = ""
+  ip_range_pods              = ""
   ip_range_services          = ""
   http_load_balancing        = false
   network_policy             = false
