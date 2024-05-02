@@ -65,12 +65,10 @@ jobs:
       # Generates an execution plan for Terraform
       - name: Terraform Plan
         run: gcloud auth print-access-token | terraform plan -var 'gcp_credentials=oauth2accesstoken'
-        #  -var 'gke_cluster_name=${{ github.event.inputs.clusterName }}' -var 'gcp_region=${{ github.event.inputs.gkeRegion }}'
 
       # Apply terraform
       - name: Terraform Apply
         run: cloud auth print-access-token | terraform apply -var 'gcp_credentials=oauth2accesstoken'
-        #  -var 'gke_cluster_name=${{ github.event.inputs.clusterName }}' -var 'gcp_region=${{ github.event.inputs.gkeRegion }}' -auto-approve
 
       - name: Terraform output
         run: terraform output

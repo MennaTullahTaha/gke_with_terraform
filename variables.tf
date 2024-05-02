@@ -1,13 +1,3 @@
-variable "gcp_credentials" {
-}
-
-variable "gcp_region" {
-
-}
-
-variable "gke_cluster_name" {
-}
-
 variable "gke_zones" {
   type        = list(string)
   description = "List of zones for the GKE cluster"

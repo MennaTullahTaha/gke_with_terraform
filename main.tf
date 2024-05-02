@@ -1,8 +1,8 @@
 module "gke"  {
   source                     = "terraform-google-modules/kubernetes-engine/google"
   project_id                 = var.gcp_project_id
-  name                       = var.gke_cluster_name
-  region                     = var.gcp_region
+  name                       = "students-deployments"
+  region                     = "europe-west10"
   regional                   = var.gke_regional
   zones                      = var.gke_zones
   network                    = ""
