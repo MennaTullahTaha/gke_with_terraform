@@ -4,18 +4,21 @@ on:
   # Trigger a specific workflow run on demand without need for a code push/pull request
   workflow_dispatch:
     inputs:
-      clusterName:
-        description: "Name of the GKE cluster"
-        required: true
-      gkeRegion:
-        description: "GKE region for the cluster"
-        required: true
+      # clusterName:
+      #   description: "Name of the GKE cluster"
+      #   required: true
+      # gkeRegion:
+      #   description: "GKE region for the cluster"
+      #   required: true
       action:
         description: "Action to perform (apply/destroy)"
         required: true
 
 jobs:
   apply_cluster:
+    permissions:
+      contents: "write"
+      id-token: "write"
     runs-on: ubuntu-latest
     # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
     defaults:
@@ -28,10 +31,22 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - id: "auth"
+        name: "Authenticate to Google Cloud"
+        uses: "google-github-actions/auth@v2"
+        with:
+          workload_identity_provider: "projects/1006240973223/locations/global/workloadIdentityPools/create-cluster-workflow/providers/github-actions-terraform"
+          service_account: "github-actions-magic@code-idp.iam.gserviceaccount.com"
+          access_token_lifetime: 300s
+          create_credentials_file: true
+          cleanup_credentials: true
+          access_token_scopes: https://www.googleapis.com/auth/cloud-platform
+          id_token_include_email: false
+
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
-          project_id: deploying-with-terraform
+          project_id: code-idp
 
       # Install the latest version of Terraform CLI and configure the Terraform CLI configuration file with a Terraform Cloud user API token
       - name: Setup Terraform
@@ -49,11 +64,13 @@ jobs:
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -var 'gcp_credentials=${{ secrets.GCP_SA_KEY }}' -var 'gke_cluster_name=${{ github.event.inputs.clusterName }}' -var 'gcp_region=${{ github.event.inputs.gkeRegion }}'
+        run: gcloud auth print-access-token | terraform plan -var 'gcp_credentials=oauth2accesstoken'
+        #  -var 'gke_cluster_name=${{ github.event.inputs.clusterName }}' -var 'gcp_region=${{ github.event.inputs.gkeRegion }}'
 
       # Apply terraform
       - name: Terraform Apply
-        run: terraform apply -var 'gcp_credentials=${{ secrets.GCP_SA_KEY }}' -var 'gke_cluster_name=${{ github.event.inputs.clusterName }}' -var 'gcp_region=${{ github.event.inputs.gkeRegion }}' -auto-approve
+        run: cloud auth print-access-token | terraform apply -var 'gcp_credentials=oauth2accesstoken'
+        #  -var 'gke_cluster_name=${{ github.event.inputs.clusterName }}' -var 'gcp_region=${{ github.event.inputs.gkeRegion }}' -auto-approve
 
       - name: Terraform output
         run: terraform output
