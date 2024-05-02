@@ -1,5 +1,4 @@
 provider "google" {
-  credentials = var.gcp_credentials
   project     = var.gcp_project_id
   region      = "europe-west10"
   access_token = var.auth_token

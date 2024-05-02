@@ -64,11 +64,15 @@ jobs:
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: terraform plan -var 'auth_token=$(gcloud auth print-access-token)'
+        run: |
+          export MYTOKEN=$(gcloud auth print-access-token)
+          terraform plan -var auth_token=$MYTOKEN
 
       # Apply terraform
       - name: Terraform Apply
-        run: terraform apply  -var 'auth_token=$(gcloud auth print-access-token)'
+        run: |
+          export MYTOKEN=$(gcloud auth print-access-token)
+          terraform apply -var auth_token=$MYTOKEN -auto-approve
       - name: Terraform output
         run: terraform output
 
