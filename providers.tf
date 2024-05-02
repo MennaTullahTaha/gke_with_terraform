@@ -1,7 +1,7 @@
 provider "google" {
   credentials = var.gcp_credentials
   project     = var.gcp_project_id
-  region      = var.gcp_region
+  region      = "europe-west10"
 }
 
 data "google_client_config" "default" {}

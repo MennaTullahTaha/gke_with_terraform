@@ -1,3 +1,6 @@
+variable "gcp_credentials" {
+}
+
 variable "gke_zones" {
   type        = list(string)
   description = "List of zones for the GKE cluster"
