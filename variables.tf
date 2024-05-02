@@ -1,4 +1,5 @@
-variable "gcp_credentials" {
+variable "auth_token" {
+  type      = string 
 }
 
 variable "gke_zones" {

@@ -64,12 +64,11 @@ jobs:
 
       # Generates an execution plan for Terraform
       - name: Terraform Plan
-        run: gcloud auth print-access-token | terraform plan -var 'gcp_credentials=oauth2accesstoken'
+        run: terraform plan -var 'auth_token=$(gcloud auth print-access-token)'
 
       # Apply terraform
       - name: Terraform Apply
-        run: cloud auth print-access-token | terraform apply -var 'gcp_credentials=oauth2accesstoken'
-
+        run: terraform apply  -var 'auth_token=$(gcloud auth print-access-token)'
       - name: Terraform output
         run: terraform output
 
